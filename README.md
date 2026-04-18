@@ -1,70 +1,176 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📊 Project & Task Management Dashboard (React)
 
-## Available Scripts
+A modern and responsive Project & Task Management Dashboard built using React.js.  
+It demonstrates scalable frontend architecture using reusable components, Context API for state management, API integration, routing, and clean UI design.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This application helps users manage projects and tasks efficiently. It includes task tracking, project listing, filtering, searching, pagination, and dynamic routing for task details.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+It is built with real-world React development practices such as:
+- Component reusability
+- Separation of concerns
+- Centralized state management
+- API abstraction
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠 Tech Stack
 
-### `npm run build`
+- React.js (Functional Components + Hooks)
+- React Router DOM
+- Context API
+- Tailwind CSS
+- Fetch API
+- LocalStorage (optional persistence)
+- JavaScript (ES6+)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ✨ Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 📊 Dashboard
+- Total projects count
+- Total tasks count
+- Completed vs pending tasks summary
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 📁 Projects Module
+- Display list of projects
+- Search projects by name
+- Filter by status (Active / Completed)
+- Sort projects alphabetically
+- Each project shows:
+  - Name
+  - Description
+  - Number of tasks
+  - Status
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### ✅ Tasks Module
+- Task list with:
+  - Title
+  - Assigned user
+  - Due date
+  - Status (Completed / Pending)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Features:
+- Add new task with validation
+- Toggle task status
+- Search tasks
+- Filter tasks
+- Pagination
+- Task detail navigation (/tasks/:id)
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 📄 Task Detail Page
+- Displays full task information using dynamic routing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🧠 State Management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Uses React Context API
+- Global state includes:
+  - Tasks
+  - Projects
+  - Loading state
+  - Error state
 
-### Analyzing the Bundle Size
+Flow:
+- API fetch happens in Context Provider
+- Data is normalized before storing
+- Components consume state via useContext
+- Updates handled using setState functions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 📂 Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+src/
+│
+├── components/
+│   ├── Navbar.js
+│   ├── TaskCard.js
+│   └── TaskForm.js
+│
+├── context/
+│   └── AppContext.js
+│
+├── pages/
+│   ├── Dashboard.js
+│   ├── Projects.js
+│   ├── Tasks.js
+│   └── TaskDetail.js
+│
+├── services/
+│   └── taskService.js
+│
+├── hooks/
+│   └── useFetch.js
+│
+├── App.js
+├── index.css
+└── index.js
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## ⚙️ Installation & Setup
 
-### Deployment
+1. Clone repository  
+git clone https://github.com/AS-Codes15/task-dashboard.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. Install dependencies  
+npm install
 
-### `npm run build` fails to minify
+3. Start development server  
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. Build for production  
+npm run build
+
+---
+
+## 🔌 API Integration
+
+- API used: https://jsonplaceholder.typicode.com/todos
+- Data fetched using Fetch API
+- Data transformed into structured task format
+- API logic separated into service layer
+
+---
+
+## 📌 Assumptions
+
+- Projects are static (mock data)
+- Tasks are fetched from API
+- No backend database used
+- State updates happen in frontend only
+- Focus is frontend implementation
+
+---
+
+## 🎯 Future Improvements
+
+- Authentication system
+- Backend integration (Node / Firebase)
+- Role-based access control
+- Drag & drop tasks
+- Advanced analytics dashboard
+
+---
+
+## 👨‍💻 Purpose
+
+This project demonstrates:
+- React architecture
+- State management
+- API handling
+- Clean folder structure
+- Real-world frontend design patterns
