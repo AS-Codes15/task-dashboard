@@ -4,30 +4,23 @@ import TaskForm from "../components/TaskForm";
 import { Link } from "react-router-dom";
 
 export default function Tasks() {
-  const { tasks, setTasks, loading, error } = useContext(AppContext);
+  const { tasks = [], setTasks, loading, error } = useContext(AppContext);
 
   const [editTask, setEditTask] = useState(null);
-
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
 
-  // PAGINATION STATE
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 5;
 
-  // LOADING
   if (loading) {
     return <div className="p-6 text-center">Loading...</div>;
   }
 
-  // ERROR
   if (error) {
-    return (
-      <div className="p-6 text-center text-red-500">{error}</div>
-    );
+    return <div className="p-6 text-center text-red-500">{error}</div>;
   }
 
-  // TOGGLE TASK
   const toggleTask = (id) => {
     setTasks(
       tasks.map((t) =>
@@ -36,8 +29,7 @@ export default function Tasks() {
     );
   };
 
-  // FILTER + SEARCH
-  const filtered = tasks.filter((t) => {
+  const filteredTasks = tasks.filter((t) => {
     const matchSearch = t.title
       .toLowerCase()
       .includes(search.toLowerCase());
@@ -46,44 +38,45 @@ export default function Tasks() {
       filter === "All"
         ? true
         : filter === "Completed"
-        ? t.completed === true
-        : t.completed === false;
+        ? t.completed
+        : !t.completed;
 
     return matchSearch && matchFilter;
   });
 
-  // PAGINATION LOGIC
   const start = (currentPage - 1) * tasksPerPage;
-  const paginatedTasks = filtered.slice(
+
+  const paginatedTasks = filteredTasks.slice(
     start,
     start + tasksPerPage
   );
 
-  const totalPages = Math.ceil(filtered.length / tasksPerPage);
+  const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="max-w-4xl mx-auto p-6">
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-4xl mx-auto">
+
         <TaskForm editTask={editTask} setEditTask={setEditTask} />
 
         {/* SEARCH */}
         <input
-          className="border p-2 w-full mt-4"
-          placeholder="Search tasks"
+          className="border p-2 w-full mt-4 rounded"
+          placeholder="Search tasks..."
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
-            setCurrentPage(1); // reset page
+            setCurrentPage(1);
           }}
         />
 
         {/* FILTER */}
         <select
-          className="border p-2 mt-3"
+          className="border p-2 mt-3 rounded"
           value={filter}
           onChange={(e) => {
             setFilter(e.target.value);
-            setCurrentPage(1); // reset page
+            setCurrentPage(1);
           }}
         >
           <option value="All">All</option>
@@ -95,52 +88,67 @@ export default function Tasks() {
         <div className="mt-4 space-y-3">
           {paginatedTasks.map((task) => (
             <div key={task.id} className="bg-white p-4 shadow rounded">
-              {/* TITLE LINK */}
+
               <Link to={`/tasks/${task.id}`}>
-                <h2 className="font-bold cursor-pointer hover:underline">
+                <h2 className="font-semibold hover:underline">
                   {task.title}
                 </h2>
               </Link>
 
-              <p>Assigned: {task.assignedTo || "N/A"}</p>
-              <p>Due: {task.dueDate || "N/A"}</p>
+              <p className="text-sm text-gray-600">
+                Assigned: {task.assignedTo || "N/A"}
+              </p>
 
-              {/* STATUS */}
-              <p>
+              <p className="text-sm text-gray-600">
+                Due: {task.dueDate || "N/A"}
+              </p>
+
+              <p className="text-sm mt-1">
                 Status:{" "}
                 <span
                   className={
                     task.completed
-                      ? "text-green-600 font-semibold"
-                      : "text-red-500 font-semibold"
+                      ? "text-green-600 font-medium"
+                      : "text-red-500 font-medium"
                   }
                 >
                   {task.completed ? "Completed" : "Pending"}
                 </span>
               </p>
 
-              {/* TOGGLE */}
-              <button
-                onClick={() => toggleTask(task.id)}
-                className="mt-2 bg-blue-500 text-white px-3 py-1 rounded"
-              >
-                Toggle
-              </button>
+              <div className="mt-2 flex gap-2">
+                <button
+                  onClick={() => toggleTask(task.id)}
+                  className="bg-blue-500 text-white px-3 py-1 rounded"
+                >
+                  Toggle
+                </button>
 
-              <button
-                onClick={() => setEditTask(task)}
-                className="mt-2 ml-2 bg-yellow-500 text-white px-3 py-1 rounded"
-              >
-                Edit
-              </button>
+                <button
+                  onClick={() => setEditTask(task)}
+                  className="bg-yellow-500 text-white px-3 py-1 rounded"
+                >
+                  Edit
+                </button>
+              </div>
+
             </div>
           ))}
         </div>
 
-        {/* PAGINATION CONTROLS */}
+        {/* EMPTY STATE */}
+        {paginatedTasks.length === 0 && (
+          <p className="text-center text-gray-500 mt-4">
+            No tasks found
+          </p>
+        )}
+
+        {/* PAGINATION */}
         <div className="flex justify-center gap-2 mt-6">
           <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            onClick={() =>
+              setCurrentPage((prev) => Math.max(prev - 1, 1))
+            }
             disabled={currentPage === 1}
             className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
           >
@@ -153,7 +161,9 @@ export default function Tasks() {
 
           <button
             onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              setCurrentPage((prev) =>
+                Math.min(prev + 1, totalPages)
+              )
             }
             disabled={currentPage === totalPages || totalPages === 0}
             className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
@@ -161,6 +171,7 @@ export default function Tasks() {
             Next
           </button>
         </div>
+
       </div>
     </div>
   );

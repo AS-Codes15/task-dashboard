@@ -1,8 +1,8 @@
-
 # 📊 Project & Task Management Dashboard (React)
 
-A modern and responsive Project & Task Management Dashboard built using React.js.  
-It demonstrates scalable frontend architecture using reusable components, Context API for state management, API integration, routing, and clean UI design.
+A modern, responsive Project & Task Management Dashboard built using React.js.
+
+This project demonstrates real-world frontend development practices including reusable components, Context API for state management, API integration, routing, custom hooks, and clean UI design.
 
 ---
 
@@ -10,11 +10,12 @@ It demonstrates scalable frontend architecture using reusable components, Contex
 
 This application helps users manage projects and tasks efficiently. It includes task tracking, project listing, filtering, searching, pagination, and dynamic routing for task details.
 
-It is built with real-world React development practices such as:
-- Component reusability
-- Separation of concerns
-- Centralized state management
-- API abstraction
+It is built using scalable React architecture and follows best practices such as:
+- Component reusability  
+- Separation of concerns  
+- Centralized state management  
+- API abstraction layer  
+- Clean folder structure  
 
 ---
 
@@ -25,7 +26,7 @@ It is built with real-world React development practices such as:
 - Context API
 - Tailwind CSS
 - Fetch API
-- LocalStorage (optional persistence)
+- LocalStorage (for persistence)
 - JavaScript (ES6+)
 
 ---
@@ -33,18 +34,18 @@ It is built with real-world React development practices such as:
 ## ✨ Features
 
 ### 📊 Dashboard
-- Total projects count
-- Total tasks count
-- Completed vs pending tasks summary
+- Displays total projects
+- Displays total tasks
+- Shows completed vs pending task summary
 
 ---
 
 ### 📁 Projects Module
-- Display list of projects
+- List of all projects
 - Search projects by name
 - Filter by status (Active / Completed)
 - Sort projects alphabetically
-- Each project shows:
+- Each project includes:
   - Name
   - Description
   - Number of tasks
@@ -61,7 +62,8 @@ It is built with real-world React development practices such as:
 
 Features:
 - Add new task with validation
-- Toggle task status
+- Edit existing tasks
+- Toggle task completion status
 - Search tasks
 - Filter tasks
 - Pagination
@@ -76,25 +78,31 @@ Features:
 
 ## 🧠 State Management
 
-- Uses React Context API
+- Implemented using React Context API
 - Global state includes:
   - Tasks
   - Projects
   - Loading state
-  - Error state
+  - Error handling
 
-Flow:
-- API fetch happens in Context Provider
-- Data is normalized before storing
-- Components consume state via useContext
-- Updates handled using setState functions
+### Flow:
+- API data is fetched inside Context Provider  
+- Data is normalized before storing  
+- Components consume state using useContext  
+- Updates handled via setState functions  
+
+---
+
+## ⚙️ Custom Hooks
+
+- `useFetch` hook created for reusable API logic
+- Handles loading, error, and data state centrally
 
 ---
 
 ## 📂 Project Structure
 
 src/
-│
 ├── components/
 │   ├── Navbar.js
 │   ├── TaskCard.js
@@ -121,28 +129,12 @@ src/
 
 ---
 
-## ⚙️ Installation & Setup
-
-1. Clone repository  
-git clone https://github.com/AS-Codes15/task-dashboard.git
-
-2. Install dependencies  
-npm install
-
-3. Start development server  
-npm start
-
-4. Build for production  
-npm run build
-
----
-
 ## 🔌 API Integration
 
 - API used: https://jsonplaceholder.typicode.com/todos
 - Data fetched using Fetch API
 - Data transformed into structured task format
-- API logic separated into service layer
+- API logic separated into service layer for better maintainability
 
 ---
 
@@ -150,18 +142,18 @@ npm run build
 
 - Projects are static (mock data)
 - Tasks are fetched from API
-- No backend database used
-- State updates happen in frontend only
-- Focus is frontend implementation
+- No backend database is used
+- All state updates are handled on the frontend
+- Focus is on frontend implementation
 
 ---
 
 ## 🎯 Future Improvements
 
 - Authentication system
-- Backend integration (Node / Firebase)
+- Backend integration (Node.js / Firebase)
 - Role-based access control
-- Drag & drop tasks
+- Drag and drop task management
 - Advanced analytics dashboard
 
 ---
@@ -169,8 +161,9 @@ npm run build
 ## 👨‍💻 Purpose
 
 This project demonstrates:
-- React architecture
-- State management
-- API handling
-- Clean folder structure
-- Real-world frontend design patterns
+- React architecture design
+- State management using Context API
+- API handling and abstraction
+- Custom hooks usage
+- Clean and scalable folder structure
+- Real-world frontend development patterns

@@ -29,7 +29,7 @@ export default function Dashboard() {
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-gray-800">Dashboard</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card title="Projects" value={projects.length} />
           <Card title="Tasks" value={total} />
           <Card title="Completed" value={completed} />
@@ -42,9 +42,9 @@ export default function Dashboard() {
 
 function Card({ title, value }) {
   return (
-    <div className="bg-white p-5 rounded-xl shadow hover:shadow-md transition">
-      <h2 className="text-gray-500">{title}</h2>
-      <p className="text-2xl font-bold mt-2">{value}</p>
+    <div className="bg-white p-5 rounded-xl shadow hover:shadow-lg transition-all duration-200">
+      <h2 className="text-gray-500 text-sm">{title}</h2>
+      <p className="text-2xl font-bold mt-2 text-gray-800">{value}</p>
     </div>
   );
 }

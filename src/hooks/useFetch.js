@@ -6,16 +6,24 @@ export default function useFetch(url) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch(() => {
+    if (!url) return;
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        const res = await fetch(url);
+        const result = await res.json();
+
+        setData(result);
+      } catch (err) {
         setError("Error fetching data");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, [url]);
 
   return { data, loading, error };

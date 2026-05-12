@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function TaskForm({ editTask, setEditTask }) {
-  const { tasks, setTasks } = useContext(AppContext);
+  const { tasks = [], setTasks } = useContext(AppContext);
 
   const [form, setForm] = useState({
     title: "",
@@ -11,13 +11,13 @@ export default function TaskForm({ editTask, setEditTask }) {
     status: "Pending",
   });
 
-  // PREFILL WHEN EDITING
+  // PREFILL FORM WHEN EDITING
   useEffect(() => {
     if (editTask) {
       setForm({
-        title: editTask.title,
-        assignedTo: editTask.assignedTo,
-        dueDate: editTask.dueDate,
+        title: editTask.title || "",
+        assignedTo: editTask.assignedTo || "",
+        dueDate: editTask.dueDate || "",
         status: editTask.completed ? "Completed" : "Pending",
       });
     }
@@ -28,13 +28,13 @@ export default function TaskForm({ editTask, setEditTask }) {
   };
 
   const handleSubmit = () => {
-    // VALIDATION
+    // BASIC VALIDATION
     if (!form.title.trim()) return alert("Title is required");
     if (!form.assignedTo) return alert("Assigned user required");
     if (!form.dueDate) return alert("Due date required");
 
     if (editTask) {
-      // EDIT TASK
+      // UPDATE TASK
       setTasks(
         tasks.map((t) =>
           t.id === editTask.id
@@ -45,9 +45,10 @@ export default function TaskForm({ editTask, setEditTask }) {
                 dueDate: form.dueDate,
                 completed: form.status === "Completed",
               }
-            : t,
-        ),
+            : t
+        )
       );
+
       setEditTask(null);
     } else {
       // ADD TASK
@@ -74,7 +75,9 @@ export default function TaskForm({ editTask, setEditTask }) {
 
   return (
     <div className="bg-white p-4 shadow rounded">
-      <h2 className="font-bold mb-3">{editTask ? "Edit Task" : "Add Task"}</h2>
+      <h2 className="font-bold mb-3">
+        {editTask ? "Edit Task" : "Add Task"}
+      </h2>
 
       {/* TITLE */}
       <input
@@ -82,15 +85,15 @@ export default function TaskForm({ editTask, setEditTask }) {
         value={form.title}
         onChange={handleChange}
         placeholder="Title"
-        className="border p-2 w-full mb-2"
+        className="border p-2 w-full mb-2 rounded"
       />
 
-      {/* ASSIGNED USER (DROPDOWN) */}
+      {/* ASSIGNED USER */}
       <select
         name="assignedTo"
         value={form.assignedTo}
         onChange={handleChange}
-        className="border p-2 w-full mb-2"
+        className="border p-2 w-full mb-2 rounded"
       >
         <option value="">Select User</option>
         <option>John</option>
@@ -104,7 +107,7 @@ export default function TaskForm({ editTask, setEditTask }) {
         name="dueDate"
         value={form.dueDate}
         onChange={handleChange}
-        className="border p-2 w-full mb-2"
+        className="border p-2 w-full mb-2 rounded"
       />
 
       {/* STATUS */}
@@ -112,16 +115,16 @@ export default function TaskForm({ editTask, setEditTask }) {
         name="status"
         value={form.status}
         onChange={handleChange}
-        className="border p-2 w-full mb-2"
+        className="border p-2 w-full mb-3 rounded"
       >
-        <option>Pending</option>
-        <option>Completed</option>
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
       </select>
 
       {/* BUTTON */}
       <button
         onClick={handleSubmit}
-        className="bg-green-500 text-white px-4 py-2"
+        className="bg-green-500 text-white px-4 py-2 rounded w-full"
       >
         {editTask ? "Update Task" : "Add Task"}
       </button>

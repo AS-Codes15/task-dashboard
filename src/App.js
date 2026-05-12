@@ -4,7 +4,7 @@ import { lazy, Suspense } from "react";
 import AppProvider from "./context/AppContext";
 import Navbar from "./components/Navbar";
 
-// LAZY LOADED PAGES
+// Lazy loaded pages
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Projects = lazy(() => import("./pages/Projects"));
 const Tasks = lazy(() => import("./pages/Tasks"));
@@ -16,20 +16,18 @@ function App() {
       <BrowserRouter>
         <Navbar />
 
-        {/* LOADING FALLBACK FOR LAZY COMPONENTS */}
-        <Suspense
-          fallback={
-            <div className="p-6 text-center">Loading page...</div>
-          }
-        >
+        <Suspense fallback={<div className="p-6 text-center">Loading page...</div>}>
+
           <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/tasks/:id" element={<TaskDetail />} />
           </Routes>
+
         </Suspense>
+
       </BrowserRouter>
     </AppProvider>
   );

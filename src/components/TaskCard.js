@@ -1,7 +1,7 @@
 export default function TaskCard({ task, onToggle }) {
   return (
     <div className="flex justify-between items-center p-4 bg-white shadow rounded mb-3 hover:shadow-md transition">
-      
+
       {/* Task Title */}
       <span
         className={`text-gray-800 ${
@@ -11,7 +11,7 @@ export default function TaskCard({ task, onToggle }) {
         {task.title}
       </span>
 
-      {/* Button */}
+      {/* Action Button */}
       <button
         onClick={() => onToggle(task.id)}
         className={`px-3 py-1 rounded text-white transition ${
@@ -22,6 +22,7 @@ export default function TaskCard({ task, onToggle }) {
       >
         {task.completed ? "Undo" : "Done"}
       </button>
+
     </div>
   );
 }
